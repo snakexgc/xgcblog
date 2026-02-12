@@ -32,6 +32,7 @@ jobs:
       # 步骤 3：安装主题依赖
     - name: Install themes dependencies    # 安装 Hexo 和相关依赖
       run: |
+        git pull
         cd themes/stellar && ls && npm install   # 安装主题依赖
 
     # 步骤 4：生成静态文件
