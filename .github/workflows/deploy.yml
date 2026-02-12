@@ -29,6 +29,11 @@ jobs:
         npm install -g hexo-cli     # 安装 Hexo 命令行工具
         npm install                 # 安装项目依赖
 
+      # 步骤 3：安装主题依赖
+    - name: Install themes dependencies    # 安装 Hexo 和相关依赖
+      run: |
+        cd themes/stellar && npm install   # 安装主题依赖
+
     # 步骤 4：生成静态文件
     - name: Hexo Generate            # 使用 Hexo 生成静态文件
       run: |
