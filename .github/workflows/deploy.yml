@@ -13,13 +13,15 @@ jobs:
     steps:
     # 步骤 1：拉取代码
     - name: Checkout repository     # 从 GitHub 仓库拉取代码
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3     # 升级到 v3
       with:
         ref: main                   # 拉取 main 分支代码
+        submodules: recursive       # 递归拉取子模块（关键：获取 themes/stellar）
+        fetch-depth: 0              # 获取完整提交历史
 
     # 步骤 2：设置 Node 环境
     - name: Setup Node.js           # 安装 Node.js 环境
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v3   # 升级到 v3
       with:
         node-version: 'v22'           # 设置 Node.js 版本
 
@@ -28,14 +30,13 @@ jobs:
       run: |
         npm install -g hexo-cli     # 安装 Hexo 命令行工具
         npm install                 # 安装项目依赖
-
-      # 步骤 3：安装主题依赖
-    - name: Install themes dependencies    # 安装 Hexo 和相关依赖
-      run: |
-        git pull
-        cd themes/stellar 
-        ls 
-        npm install   # 安装主题依赖
+        # 如果主题目录存在 package.json，也安装主题的依赖
+        if [ -f "themes/stellar/package.json" ]; then
+          echo "Installing theme dependencies..."
+          cd themes/stellar
+          npm install --production
+          cd ../..
+        fi
 
     # 步骤 4：生成静态文件
     - name: Hexo Generate            # 使用 Hexo 生成静态文件
