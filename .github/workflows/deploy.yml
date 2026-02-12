@@ -58,3 +58,11 @@ jobs:
         git config --global user.name "$GIT_NAME"     # 配置 Git 用户名
         git config --global user.email "$GIT_EMAIL"    # 配置 Git 用户邮箱
         hexo deploy                                   # 使用 Hexo 部署博客
+
+    # 步骤 6：部署到 Cloudflare Workers
+    - name: Deploy to Cloudflare Workers
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        command: deploy

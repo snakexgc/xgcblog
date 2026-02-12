@@ -1,0 +1,8 @@
+name = "xgcblog"
+main = "src/worker.js"
+compatibility_date = "2026-02-12"
+
+# 配置静态资源目录 (Workers Assets)
+[assets]
+directory = "./public"
+binding = "ASSETS"
