@@ -103,5 +103,5 @@ theme: stellar
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
   type: git
-  repository: git@github.com:snakexgc/xgcblogweb.git
+  repository: git@github.com:snakexgc/snakexgc.github.io.git
   branch: main
