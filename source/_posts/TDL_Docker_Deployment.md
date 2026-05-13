@@ -37,6 +37,8 @@ updated: '2026-05-13T20:53:44.453+08:00'
 
 {% endbox %}
 
+{% endgrid %}
+
 ---
 
 ## Docker安装
@@ -129,6 +131,8 @@ docker compose up -d
 ```
 
 {% endbox %}
+
+{% endgrid %}
 
 #### 1. 修改用户名和密码
 
