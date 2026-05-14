@@ -19,6 +19,12 @@ jobs:
         submodules: recursive       # 递归拉取子模块（关键：获取 themes/stellar）
         fetch-depth: 0              # 获取完整提交历史
 
+    # 步骤 1.1：更新主题到 main 分支最新代码
+    - name: Checkout latest Stellar theme
+      run: |
+        git -C themes/stellar fetch origin main
+        git -C themes/stellar checkout origin/main
+
     # 步骤 2：设置 Node 环境
     - name: Setup Node.js           # 安装 Node.js 环境
       uses: actions/setup-node@v3   # 升级到 v3
