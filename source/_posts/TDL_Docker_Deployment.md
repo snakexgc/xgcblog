@@ -11,7 +11,7 @@ tags:
 - 下载器
 - 表情监听
 title: TDL Docker部署教程
-updated: '2026-05-14T11:06:33.629+08:00'
+updated: '2026-05-14T14:46:22.667+08:00'
 ---
 # TDL Docker 部署教程
 
@@ -104,6 +104,7 @@ docker compose up -d
 ### 4. 配置修改
 
 {% note color:red **艺高人胆大提示** 修改配置后，每次重启都需要再次登录，如果你有足够胆量，可以一次配置完后，再重启。 %}
+
 #### 1. 修改用户名和密码
 
 使用默认用户名和密码进行登录后，去修改用户和密码
@@ -164,6 +165,33 @@ docker compose up -d
 之后给消息增加一个表情回应，看TDL是否会开始下载
 
 ![](https://images.snakexgc.com/file/1778689781342_image.png)
+
+## 更新
+
+首先进入tdl文件夹
+
+```bash
+cd
+cd tdl
+```
+
+停止服务：
+
+```bash
+docker compose down
+```
+
+升级镜像：
+
+```bash
+docker compose pull
+```
+
+启动容器：
+
+```bash
+docker compose up -d
+```
 
 ## 结语
 
