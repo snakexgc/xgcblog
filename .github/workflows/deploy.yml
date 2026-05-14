@@ -19,20 +19,21 @@ jobs:
         submodules: false           # 不在 checkout 阶段拉子模块，避免固定提交失效导致失败
         fetch-depth: 0              # 获取完整提交历史
 
-    # 步骤 1.1：拉取主题 main 分支最新代码
+    # 步骤 2：拉取主题 main 分支最新代码
     - name: Checkout latest Stellar theme
       run: |
-        THEME_REPO="$(git config --file .gitmodules --get submodule.themes/stellar.url)"
+        THEME_REPO="https://github.com/snakexgc/hexo-theme-stellar.git"
+        mkdir -p themes
         rm -rf themes/stellar
         git clone --depth 1 --branch main "$THEME_REPO" themes/stellar
 
-    # 步骤 2：设置 Node 环境
+    # 步骤 3：设置 Node 环境
     - name: Setup Node.js           # 安装 Node.js 环境
       uses: actions/setup-node@v3   # 升级到 v3
       with:
         node-version: 'v22'           # 设置 Node.js 版本
 
-    # 步骤 3：安装依赖
+    # 步骤 4：安装依赖
     - name: Install dependencies    # 安装 Hexo 和相关依赖
       run: |
         npm install -g hexo-cli     # 安装 Hexo 命令行工具
@@ -45,13 +46,13 @@ jobs:
           cd ../..
         fi
 
-    # 步骤 4：生成静态文件
+    # 步骤 5：生成静态文件
     - name: Hexo Generate            # 使用 Hexo 生成静态文件
       run: |
         hexo clean                  # 清理旧的生成文件
         hexo generate               # 生成新的静态文件
 
-    # 步骤 5：部署到 GitHub Pages (部署到 gh-pages 分支)
+    # 步骤 6：部署到 GitHub Pages (部署到 gh-pages 分支)
     - name: Deploy to GitHub Pages   # 使用 Hexo 部署到 GitHub Pages
       env:
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE }}   # 使用 GitHub Secrets 中存储的 SSH 私钥
@@ -66,7 +67,7 @@ jobs:
         git config --global user.email "$GIT_EMAIL"    # 配置 Git 用户邮箱
         hexo deploy                                   # 使用 Hexo 部署博客
 
-    # 步骤 6：部署到 Cloudflare Workers
+    # 步骤 7：部署到 Cloudflare Workers
     - name: Deploy to Cloudflare Workers
       uses: cloudflare/wrangler-action@v3
       with:
