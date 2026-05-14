@@ -16,14 +16,15 @@ jobs:
       uses: actions/checkout@v3     # 升级到 v3
       with:
         ref: main                   # 拉取 main 分支代码
-        submodules: recursive       # 递归拉取子模块（关键：获取 themes/stellar）
+        submodules: false           # 不在 checkout 阶段拉子模块，避免固定提交失效导致失败
         fetch-depth: 0              # 获取完整提交历史
 
-    # 步骤 1.1：更新主题到 main 分支最新代码
+    # 步骤 1.1：拉取主题 main 分支最新代码
     - name: Checkout latest Stellar theme
       run: |
-        git -C themes/stellar fetch origin main
-        git -C themes/stellar checkout origin/main
+        THEME_REPO="$(git config --file .gitmodules --get submodule.themes/stellar.url)"
+        rm -rf themes/stellar
+        git clone --depth 1 --branch main "$THEME_REPO" themes/stellar
 
     # 步骤 2：设置 Node 环境
     - name: Setup Node.js           # 安装 Node.js 环境
